@@ -38,4 +38,5 @@ jobs:
 
     - name: Run crawler
       run: |
+        cd news
         scrapy crawl cntv
