@@ -6,8 +6,13 @@ import re
 class CntvSpider(scrapy.Spider):
     name = "cntv"
     allowed_domains = ["cntv.cn"]
-    # strTime = (datetime.date.today() + datetime.timedelta(-1)).strftime("%Y%m%d")
-    strTime = (datetime.date.today() ).strftime("%Y%m%d")
+    
+    current_time = datetime.datetime.now().time()
+    target_time = datetime.time(21, 0)  # 晚上9点的时间
+    strTime = (datetime.date.today() + datetime.timedelta(-1)).strftime("%Y%m%d")
+    if current_time > target_time:
+        strTime = (datetime.date.today() ).strftime("%Y%m%d")        
+    
     url = f'https://tv.cctv.com/lm/xwlb/day/{strTime}.shtml'
     start_urls = [url]
 
