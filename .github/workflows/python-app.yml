@@ -17,8 +17,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     env:
+      TZ: "Asia/Shanghai"
       DEVICEKEY: ${{ secrets.DEVICEKEY }}
 
       
