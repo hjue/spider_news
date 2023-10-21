@@ -66,6 +66,8 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    "news.pipelines.SavingToArtifacts": 300,
+   "news.pipelines.PushToMobile": 400,
+   
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

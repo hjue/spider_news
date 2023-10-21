@@ -6,7 +6,10 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-
+import requests
+import os
+import json
+import datetime
 
 class NewsPipeline:
     def process_item(self, item, spider):
@@ -22,10 +25,34 @@ class SavingToArtifacts(object):
         fileName = f'../artifacts/xwlb-{item["date"].strftime("%Y-%m-%d")}.md'
         title = item['title']
         brief = item['brief']
-        content = f"""# {title}
+        url = item['url']
+        content = f"""# [{title}]({url})
 
 {brief}
 """
         open(fileName,'w').write(content)
         print(fileName)
         return item
+
+
+
+class PushToMobile(object):
+
+    def __init__(self):
+        pass
+
+    def process_item(self, item, spider):
+        title = item['title']
+        brief = item['brief']
+        date = item['date']
+        url = item['url']
+
+        deviceKey=os.getenv('DEVICEKEY')
+        apiUrl = f'https://api.day.app/push'
+        headers = {'Content-Type': 'application/json'}
+        data = {'title': title, 'body': brief,
+                'isArchive':1,"device_key": deviceKey}
+
+        response = requests.post(apiUrl, headers=headers, data=json.dumps(data))
+        print(response.status_code)
+        print(response.text)
