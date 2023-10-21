@@ -3,7 +3,7 @@
 
 
 # spider_news
-抓取重要新闻，可配置推送
+抓取重要新闻，推送至手机
 
 
  [![Spider](https://github.com/hjue/spider_news/actions/workflows/python-app.yml/badge.svg)](https://github.com/hjue/spider_news/actions/workflows/python-app.yml)
