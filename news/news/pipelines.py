@@ -29,6 +29,9 @@ class SavingToArtifacts(object):
         content = f"""# [{title}]({url})
 
 {brief}
+
+[视频地址]({url})
+
 """
         open(fileName,'w').write(content)
         print(fileName)
@@ -50,7 +53,14 @@ class PushToMobile(object):
         deviceKey=os.getenv('DEVICEKEY')
         apiUrl = f'https://api.day.app/push'
         headers = {'Content-Type': 'application/json'}
-        data = {'title': title, 'body': brief,
+        body = f"""{title}
+
+{brief}
+
+视频地址: {url}
+
+"""
+        data = {'title': title, 'body': body,
                 'isArchive':1,"device_key": deviceKey}
 
         response = requests.post(apiUrl, headers=headers, data=json.dumps(data))
