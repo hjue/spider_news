@@ -7,7 +7,8 @@ on:
   workflow_dispatch:
 
   schedule:
-    - cron: "0 21 * * *"
+    # 由于workflow无法修改默认时区，这里设置了UTC时间，对应是北京时间晚上9点
+    - cron: "0 13 * * *"
 
 permissions:
   contents: read
