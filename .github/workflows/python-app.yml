@@ -24,7 +24,10 @@ jobs:
 
       
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        path: main  
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
@@ -33,6 +36,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
+        cd main
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         
     - name: Lint with flake8
@@ -44,6 +48,7 @@ jobs:
 
     - name: Run crawler
       run: |
+        cd main
         mkdir artifacts
         cd news
         scrapy crawl cntv
@@ -52,4 +57,23 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: my-artifact
-        path: artifacts
+        path: main/artifacts
+        
+    - name: Checkout data repo
+      uses: actions/checkout@v4
+      with:
+        repository: hjue/xwlb-data
+        token: ${{ secrets.GH_PAT }}
+        path: data
+    - name: Get current date
+      id: date
+      run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+    - name: commit file 
+      run: |
+        cp main/artifacts/* data/assets/
+        cd data
+        git config --global user.email "easyway137@gmail.com"
+        git config --global user.name "easyway"
+        git add .
+        git commit -m "${{ steps.date.outputs.current_date }} update"
+        git push    
