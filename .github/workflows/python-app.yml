@@ -58,3 +58,16 @@ jobs:
       with:
         name: my-artifact
         path: main/artifacts
+
+    - name: Get current date
+      id: date
+      run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+    - name: commit file 
+      run: |
+        cp main/artifacts/* data/assets/
+        cd data
+        git config --global user.email "easyway137@gmail.com"
+        git config --global user.name "easyway"
+        git add .
+        git commit -m "${{ steps.date.outputs.current_date }} update"
+        git push    
