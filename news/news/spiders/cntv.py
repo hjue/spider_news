@@ -32,6 +32,6 @@ class CntvSpider(scrapy.Spider):
         dateStr  = re.findall(r'\d{8}',lastLine)[0]
         newsDate = datetime.datetime(int(dateStr[0:4]), int(dateStr[4:6]), int(dateStr[6:8]))
         # 去掉第一行（'本期节目主要内容：）和最后一行（（《新闻联播》 20231018 19:00））的内容
-        brief = '\n'.join(brief.split('\r\n')[1:-1])
+        brief = '\n\n'.join(brief.split('\r\n')[1:-1])
         title = '%s 新闻联播主要内容' % newsDate.strftime("%Y年%m月%d日")
         yield {'brief':brief,'date':newsDate,'title':title,'url':self.url}
