@@ -47,8 +47,9 @@ jobs:
 
     - name: Run crawler
       run: |
+        cd main
         mkdir artifacts
-        cd main/news
+        cd news
         scrapy crawl cntv
         
     - name: 'Upload Artifact'
