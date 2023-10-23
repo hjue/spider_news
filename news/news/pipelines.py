@@ -30,9 +30,13 @@ class SavingToArtifacts(object):
 
 {brief}
 
-[视频地址]({url})
+## 视频
 
 """
+        for video in item['videos']:
+            content += f'[{video["title"]}]({video["url"]})'+'\n\n'
+
+        content += f'[视频地址]({url}) \n\n'
         open(fileName,'w').write(content)
         print(fileName)
         return item
