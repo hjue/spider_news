@@ -54,7 +54,7 @@ jobs:
         scrapy crawl cntv
         
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: my-artifact
         path: main/artifacts
