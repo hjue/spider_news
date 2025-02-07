@@ -22,7 +22,13 @@ class SavingToArtifacts(object):
         pass
 
     def process_item(self, item, spider):
-        fileName = f'../artifacts/xwlb-{item["date"].strftime("%Y-%m-%d")}.md'
+        # 获取年份并创建目录
+        year = item["date"].year
+        year_dir = f'../artifacts/{year}'
+        if not os.path.exists(year_dir):
+            os.makedirs(year_dir)
+            
+        fileName = f'../artifacts/{year}/xwlb-{item["date"].strftime("%Y-%m-%d")}.md'
         title = item['title']
         brief = item['brief']
         url = item['url']
