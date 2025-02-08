@@ -70,7 +70,7 @@ jobs:
       run: echo "current_date=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
     - name: commit file 
       run: |
-        cp main/artifacts/* data/assets/
+        cp -r main/artifacts/* data/assets/
         cd data
         git config --global user.email "easyway137@gmail.com"
         git config --global user.name "easyway"
