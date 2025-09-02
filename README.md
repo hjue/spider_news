@@ -34,3 +34,4 @@
 
 打开你的代码仓库。导航到 "Settings" 选项卡。在左侧的侧边栏中，选择 "Secrets"，增加Environment secrets，Name为DEVICEKEY，Value是你手机端Bark中获取到的APIKEY
 
+
