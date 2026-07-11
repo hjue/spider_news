@@ -15,21 +15,20 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
+    # 全局强制所有JS Action使用Node24（双重保险，提前适配6月强制切换）
     env:
       TZ: "Asia/Shanghai"
       DEVICEKEY: ${{ secrets.DEVICEKEY }}
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-      
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6  # 升级v6，底层node24
       with:
         path: main  
     - name: Set up Python 3.10
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5  # 升级v5，底层node24
       with:
         python-version: "3.10"
     - name: Install dependencies
@@ -54,13 +53,13 @@ jobs:
         scrapy crawl cntv
         
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4.4.3  # 最新修复node24兼容的v4小版本
       with:
         name: my-artifact
         path: main/artifacts
         
     - name: Checkout data repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6  # 统一升级v6
       with:
         repository: hjue/xwlb-data
         token: ${{ secrets.GH_PAT }}
@@ -76,4 +75,4 @@ jobs:
         git config --global user.name "easyway"
         git add .
         git commit -m "${{ steps.date.outputs.current_date }} update"
-        git push    
+        git push
